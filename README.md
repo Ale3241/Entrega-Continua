@@ -123,9 +123,9 @@ RENDER_DEPLOY_HOOK_URL
 
 Las credenciales no se almacenan directamente dentro del código del proyecto.
 
-## Repositorio de GitHub
+## Aplicación en producción
 
-https://github.com/Ale3241/Entrega-Continua
+🚀 **Aplicación:** https://entregacontinua.onrender.com
 
 ## Resultado
 
