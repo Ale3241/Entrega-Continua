@@ -125,7 +125,9 @@ Las credenciales no se almacenan directamente dentro del código del proyecto.
 
 ## Aplicación en producción
 
-🚀 **Aplicación:** https://entregacontinua.onrender.com
+La aplicación está desplegada en Render:
+
+https://entregacontinua-bsbp.onrender.com
 
 ## Resultado
 
