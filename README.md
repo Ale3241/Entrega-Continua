@@ -4,7 +4,7 @@ Aplicación web sencilla desarrollada con **Python y Flask**, utilizando **Docke
 
 ## Descripción del proyecto
 
-El objetivo de esta práctica es demostrar un flujo básico de **Entrega Continua (Continuous Delivery)** utilizando una aplicación web, Docker y Docker Hub.
+El objetivo de esta práctica es demostrar un flujo básico de **Entrega Continua (Continuous Delivery)** utilizando una aplicación web, Docker, Docker Hub, GitHub Actions y Render.
 
 La aplicación muestra el mensaje:
 
@@ -12,19 +12,25 @@ La aplicación muestra el mensaje:
 
 ## Tecnologías utilizadas
 
-- Python 3.12
-- Flask
-- Docker
-- Docker Hub
+* Python 3.12
+* Flask
+* Docker
+* Docker Hub
+* GitHub
+* GitHub Actions
+* Render
 
 ## Estructura del proyecto
 
 ```text
-EntregaContinua/
+Entrega-Continua/
 ├── app.py
 ├── requirements.txt
 ├── Dockerfile
-└── README.md
+├── README.md
+└── .github/
+    └── workflows/
+        └── deploy.yml
 ```
 
 ## Aplicación
@@ -43,23 +49,17 @@ Luego se puede acceder desde:
 http://localhost:5000
 ```
 
-## Dockerfile
+## Docker
 
-El proyecto utiliza un `Dockerfile` para crear una imagen de Docker basada en Python.
+El proyecto utiliza un `Dockerfile` para crear una imagen basada en Python.
 
-El contenedor instala las dependencias necesarias y ejecuta la aplicación Flask.
-
-## Crear la imagen Docker
-
-Desde la carpeta del proyecto se ejecuta:
+### Crear la imagen
 
 ```bash
 docker build -t entregacontinua .
 ```
 
-## Ejecutar el contenedor
-
-Para ejecutar la aplicación dentro de Docker:
+### Ejecutar el contenedor
 
 ```bash
 docker run -p 5000:5000 entregacontinua
@@ -73,47 +73,69 @@ http://localhost:5000
 
 ## Docker Hub
 
-La imagen de Docker será publicada en Docker Hub utilizando el nombre:
+La imagen de la aplicación está publicada en Docker Hub:
 
 ```text
-TU_USUARIO/entregacontinua
-```
-
-Para asignar el nombre a la imagen:
-
-```bash
-docker tag entregacontinua TU_USUARIO/entregacontinua
-```
-
-Para iniciar sesión en Docker Hub:
-
-```bash
-docker login
-```
-
-Para subir la imagen:
-
-```bash
-docker push TU_USUARIO/entregacontinua
+alex3241/entregacontinua
 ```
 
 ### URL de la imagen
 
-Después de publicar la imagen, la URL será:
+https://hub.docker.com/r/alex3241/entregacontinua
+
+## GitHub Actions
+
+El proyecto utiliza **GitHub Actions** para automatizar el proceso de Entrega Continua.
+
+Cada vez que se realiza un `push` a la rama `main`, GitHub Actions ejecuta automáticamente los siguientes pasos:
+
+1. Descarga el código del repositorio.
+2. Inicia sesión en Docker Hub utilizando Secrets.
+3. Construye la imagen Docker.
+4. Publica la imagen en Docker Hub.
+5. Ejecuta el despliegue de la aplicación en Render.
+
+### Flujo de trabajo
 
 ```text
-https://hub.docker.com/r/TU_USUARIO/entregacontinua
+GitHub
+   ↓
+GitHub Actions
+   ↓
+Construcción de imagen Docker
+   ↓
+Docker Hub
+   ↓
+Render
+   ↓
+Aplicación desplegada
 ```
 
-> **Nota:** Reemplazar `TU_USUARIO` por el nombre real de usuario de Docker Hub.
+## Secrets
+
+Para proteger las credenciales se utilizan Secrets de GitHub:
+
+```text
+DOCKER_USERNAME
+DOCKER_PASSWORD
+RENDER_DEPLOY_HOOK_URL
+```
+
+Las credenciales no se almacenan directamente dentro del código del proyecto.
+
+## Repositorio de GitHub
+
+https://github.com/Ale3241/Entrega-Continua
 
 ## Resultado
 
-Al ejecutar el contenedor y acceder a `http://localhost:5000`, la aplicación muestra:
+La aplicación puede ejecutarse mediante Docker y muestra:
 
 ```text
 Hola Mundo desde Docker!
 ```
+
+El proceso de GitHub Actions permite automatizar la publicación de la imagen y el despliegue de la aplicación.
 
 ## Autor
 
